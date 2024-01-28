@@ -1,19 +1,22 @@
-let nombreAlumno
 
-let notaA
-let notaB
-let notaC
 
 let salida
 let estadoWhile = true ;
+let promedio
 
+const notas = []
 
+const alumno = {
+    nombre: "",
+    apellido: ""
+}
+/*
 function promedio(notaA, notaB, notaC) {
 
     return ((notaA + notaB +notaC ) / 3 );
 
 }
-
+*/
 function nota(notaIngresada) {
 
     let repetir = true
@@ -40,17 +43,21 @@ function nota(notaIngresada) {
 
 while(estadoWhile){
 
-   nombreAlumno = prompt ("Ingresa el nombre del alumno");
+   alumno.nombre = prompt ("Ingresa el nombre del alumno");
+   alumno.apellido = prompt (`Ingresa el apellido del ${alumno.nombre}`);
 
-if (nombreAlumno != "" && nombreAlumno != Number) {
+if (alumno.nombre != "" && alumno.nombre != Number) {
 
-    notaA = nota(parseFloat(prompt ( "ingresa la nota del 1 ªTrimestre de "+ nombreAlumno))) ;
+    notas.push( nota(parseFloat(prompt ( `ingresa la nota del 1 ªTrimestre de ${alumno.nombre} `))) ) ;
 
-    notaB = nota(parseFloat(prompt ( "ingresa la nota del 2 ªTrimestre de "+ nombreAlumno))) ;
+    notas.push( nota(parseFloat(prompt (`ingresa la nota del 2 ªTrimestre de ${alumno.nombre} ` ))) ) ;
 
-    notaC = nota(parseFloat(prompt ( "ingresa la nota del 3 ªTrimestre de "+ nombreAlumno))) ;
+    notas.push( nota(parseFloat(prompt ( `ingresa la nota del 3 ªTrimestre de ${alumno.nombre} `))) );
 
-    alert("El promedio de las notas de "+ nombreAlumno +" es: " + promedio(notaA,notaB,notaC));
+    const total = notas.reduce((acumulador, elemento) => acumulador + elemento)
+    promedio = total / notas.length
+
+    alert("El promedio de las notas de "+ alumno.nombre +" es: " + promedio);
 
     salida = prompt("Si deseas salir escribe SI , encaso contrario solo presione ACEPTAR  ").toUpperCase();
 
