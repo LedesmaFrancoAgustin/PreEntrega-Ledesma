@@ -10,13 +10,7 @@ const alumno = {
     nombre: "",
     apellido: ""
 }
-/*
-function promedio(notaA, notaB, notaC) {
 
-    return ((notaA + notaB +notaC ) / 3 );
-
-}
-*/
 function nota(notaIngresada) {
 
     let repetir = true
