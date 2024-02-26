@@ -14,6 +14,12 @@ let ultimoValor
 let btnLimpiar = document.getElementById("btnLimpiar")
 btnLimpiar.addEventListener("click",limpiar)
 
+let btnBuscarAlumno= document.getElementById("btnBuscarAlumno")
+btnBuscarAlumno.addEventListener("click",buscarAlumnos)
+
+let optionsNombre = document.getElementById("optionsNombre")
+optionsNombre.addEventListener("click",insertarNombre)
+
 let form =  document.getElementById("miFormulario")
 form.addEventListener("submit",function(event){
     event.preventDefault()
@@ -28,6 +34,10 @@ form.addEventListener("submit",function(event){
 })
 
 function guardarNotas (){
+
+  
+   
+
 
     alumno.nombre.push(document.getElementById("inputNombre").value)
     alumno.apellido.push( document.getElementById("inputApellido").value)
@@ -48,7 +58,11 @@ function guardarNotas (){
                         <td> ${promedio}</td>
                         </tr>`;
                     
-   
+    localStorage.setItem("nombre",document.getElementById("inputNombre").value)
+    localStorage.setItem("apellido",document.getElementById("inputApellido").value)
+    localStorage.setItem("Promedio",promedio)
+    
+
     miFormulario.reset()
 
 }
@@ -85,11 +99,29 @@ function verificacionNotas(){
 
    
     if (notaA <0 || notaA >10 ||  isNaN(notaA)){
-        alert("Nota A no valida - Solo valores entre 1 a 10 ")
+        Toastify({
+
+            text: "Nota A no valida - Solo valores entre 1 a 10 ",
+            className: "info",
+            duration: 3000
+            
+            }).showToast();
     }else if (notaB <0 || notaB >10 ||  isNaN(notaB)){
-        alert("Nota B no valida  - Solo valores entre 1 a 10")
+        Toastify({
+
+            text: "Nota B no valida - Solo valores entre 1 a 10 ",
+            className: "info",
+            duration: 3000
+            
+            }).showToast();
     }else if (notaC <0 || notaC >10 ||  isNaN(notaC)) {
-        alert("Nota C no valida - Solo valores entre 1 a 10 ")
+        Toastify({
+
+            text: "Nota C no valida - Solo valores entre 1 a 10 ",
+            className: "info",
+            duration: 3000
+            
+            }).showToast();
     }else{
         
         guardarNotas()
@@ -111,6 +143,31 @@ function limpiar(){
 
 }
 
+function insertarNombre(){
+
+    let inputNombre = document.getElementById("inputNombre")
+    inputNombre.value = optionsNombre.value
+    
+}
 
 
+function buscarAlumnos(){
+    let nombreContenedor = document.getElementById("optionsNombre");
 
+fetch('https://api.escuelajs.co/api/v1/users')
+    .then( (resp) => resp.json() )
+    .then( (data) => {
+       
+        data.forEach((post) => {
+            const option = document.createElement('option')
+            option.innerHTML = `
+                <option value="${post.name}">${post.name} </option>
+               
+            `
+            nombreContenedor.append(option)
+        })
+    })
+
+}
+
+ 
